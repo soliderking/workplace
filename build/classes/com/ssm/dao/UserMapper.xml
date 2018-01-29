@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.UserMapper">
+	<!-- 结果集映射：映射实体类属性与数据表字段名 -->
+	<resultMap type="com.ssm.entity.User" id="userResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="pwd" column="pwd" />
+	</resultMap>
+
+	<!-- 参数映射：映射实体类属性与数据表字段名 -->
+	<!-- resultMap：resultMap的id ，property：resultMap的property，即实体类中的属性 -->
+	<parameterMap type="com.ssm.entity.User" id="userParameterMap">
+		<parameter property="id"  resultMap="userResultMap"/>
+		<parameter property="name" resultMap="userResultMap" />
+		<parameter property="pwd" resultMap="userResultMap" />
+	</parameterMap>
+
+	<!-- 添加一个用户信息 -->
+	<insert id="save" parameterMap="userParameterMap">
+		insert into user
+		(name,pwd)
+		values
+		(#{name},#{pwd})
+	</insert>
+	<!-- 删除一个用户信息 -->
+	<delete id="delete" parameterType="int">
+		delete from user
+		where
+		id=#{id}
+	</delete>
+
+	<!-- 修改一个用户信息 -->
+	<update id="update" parameterMap="userParameterMap">
+		update user_info
+		set
+		name=#{name},pwd=#{pwd}
+		where
+		id=#{id}
+	</update>
+
+	<!-- 查询一个用户信息 -->
+	<select id="selectById" parameterType="int" resultMap="userResultMap">
+		select * from
+		user
+		where
+		id=#{id}
+	</select>
+
+	<!-- 查询全部用户信息 -->
+	<select id="selectAll" resultMap="userResultMap">
+		select * from user
+	</select>
+</mapper>

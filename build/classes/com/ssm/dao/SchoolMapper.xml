@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.SchoolMapper">
+	<!-- 结果集映射：映射实体类属性与数据表字段名 -->
+	<resultMap type="com.ssm.entity.School" id="schoolResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<association property="user" column="userid" javaType="com.ssm.entity.User" select="com.ssm.dao.UserMapper.selectById"></association>
+	</resultMap>
+
+	<!-- 参数映射：映射实体类属性与数据表字段名 -->
+	<!-- resultMap：resultMap的id ，property：resultMap的property，即实体类中的属性 -->
+
+	<!-- 添加一个用户信息 -->
+	<insert id="save" parameterType="com.ssm.entity.School">
+		insert into school 
+		(name,userid)
+		values
+		(#{name},#{user.id})
+	</insert>
+	<!-- 删除一个用户信息 -->
+	<delete id="delete" parameterType="int">
+		delete from school
+		where
+		id=#{id}
+	</delete>
+
+	<!-- 修改一个用户信息 -->
+	<update id="update" parameterType="com.ssm.entity.School">
+		update school
+		set
+		name=#{name},userid=#{user.id}
+		where
+		id=#{id}
+	</update>
+
+	<!-- 查询一个用户信息 -->
+	<select id="selectById" parameterType="int" resultMap="schoolResultMap">
+		select * from
+		school 
+		where
+		id=#{id}
+	</select>
+
+	<!-- 查询全部用户信息 -->
+	<select id="selectAll" resultMap="schoolResultMap">
+		select * from school 
+	</select>
+</mapper>
