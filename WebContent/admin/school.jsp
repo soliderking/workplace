@@ -11,8 +11,8 @@
 <div>
 	<table>
 		<tr>
-			<td>学校名</td>
-			<td>用户名</td>
+			<td>学校名:</td>
+			<td>用户名:</td>
 		</tr>
 		<c:forEach items="${schools}" var="school">
 			<tr>
